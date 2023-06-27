@@ -1,46 +1,60 @@
-function meuEscopo() {
+function myScope() {
 
-    const formulario = document.querySelector('.form');
-    const resultado = document.querySelector('.resultado');
+    const form = document.querySelector('.form');
+    const result = document.querySelector('.resultado');
+    form.addEventListener('submit', calcIMC);
 
-    function calculaIMC(evento) {
-        evento.preventDefault();
-        const peso = formulario.querySelector('#peso');
-        const altura = formulario.querySelector('#altura');
+    function calcIMC(event) {
 
-        if (peso.value <= 0 || undefined || altura.value <= 0 || undefined) {
-            resultado.innerHTML = `<p style="background: orange">Preencha ambos os campos corretamente</p>`;
-        } else {
+        event.preventDefault();
 
-            const imc = peso.value / (altura.value * altura.value);
-            let msg;
-            let msgColor;
+        const inputPeso = form.querySelector('#peso');
+        const inputAltura = form.querySelector('#altura');
 
-            if (imc < 18.5) {
-                msg = '(Abaixo do peso)';
-                msgColor = 'style="background: red"';
-            } else if (imc >= 18.5 && imc <= 24.9) {
-                msg = '(Peso normal)';
-                msgColor = 'style="background: green"';
-            } else if (imc >= 25 && imc <= 29.9) {
-                msg = '(Sobrepeso)';
-                msgColor = 'style="background: orange"';
-            } else if (imc >= 30 && imc <= 34.9) {
-                msg = '(Obesidade grau 1)';
-                msgColor = 'style="background: red"';
-            } else if (imc >= 35 && imc <= 39.9) {
-                msg = '(Obesidade grau 2)';
-                msgColor = 'style="background: red"';
-            } else if (imc >= 40) {
-                msg = '(Obesidade grau 3)';
-                msgColor = 'style="background: red"';
-            }
+        const weigth = Number(inputPeso.value);
+        const heigth = Number(inputAltura.value);
 
-            resultado.innerHTML = `<p ${msgColor} >Seu imc é: ${imc.toFixed(2)} ${msg}</p>`;
+
+
+        if (!weigth || weigth <= 0) {
+            result.innerHTML = `<p>Peso inválido!</p>`;
+            return;
         }
-    }
 
-    formulario.addEventListener('submit', calculaIMC);
+        if (!heigth || heigth <= 0) {
+            result.innerHTML = `<p>Altura inválida!</p>`;
+            return;
+        }
+
+        function resultIMC(weigth, heigth) {
+            const imc = weigth / heigth ** 2;
+            return imc.toFixed(2);
+        }
+
+        function getMessage(imc) {
+
+            const level = ['Abaixo do peso', 'Peso normal', 'Sobrepeso', 'Obesidade grau 1', 'Obesidade grau 2', 'Obesidade grau 3'];
+
+            if (imc >= 39.9) return level[5];
+            if (imc >= 34.9) return level[4];
+            if (imc >= 29.9) return level[3];
+            if (imc >= 24.9) return level[2];
+            if (imc >= 18.5) return level[1];
+            if (imc < 18.5) return level[0];
+        }
+
+        function pickColor(msg) {
+            if (msg === 'Peso normal') return 'green';
+            if (msg === 'Sobrepeso') return 'orange';
+            else return 'red';
+        }
+
+        const imc = resultIMC(weigth, heigth);
+        const msg = getMessage(imc);
+        const color = pickColor(msg);
+        result.innerHTML = ` <p style="background: ${color};">Seu imc é: ${imc} (${msg})</p>`;
+    }
 }
 
-meuEscopo();
+myScope();
+
