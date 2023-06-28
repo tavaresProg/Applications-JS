@@ -1,109 +1,99 @@
 function myScope() {
 
     const date = new Date();
+    const body = document.querySelector('.container h1');
+    const formatedDate = `${getDayOfTheWeek(date.getDay())}, ${date.getDate()} de ${getMonth(date.getMonth())} de ${date.getFullYear()} <br> ${formatTime(date)}`;
+    body.innerHTML = formatedDate;
 
-    const dataBrasil = formataData(date);
-    const diaSemana = date.getDay();
-    const diaSemanaTexto = getDiaDaSemana(diaSemana);
+    function getDayOfTheWeek(date) {
 
+        let dayOfTheWeek;
 
-    const calendar = document.querySelector('.container');
-    calendar.innerHTML = `<h1>${diaSemanaTexto}, ${dataBrasil}</h1>`;
-
-    function zeroAEsquerda(num) {
-        return num >= 10 ? num : `0${num}`;
-    }
-
-    function formataData(data) {
-
-        const dia = zeroAEsquerda(data.getDate());
-        const ano = zeroAEsquerda(data.getFullYear());
-        const mes = getMes(data.getMonth());
-        const hora = zeroAEsquerda(data.getHours());
-        const min = zeroAEsquerda(data.getMinutes());
-        const sec = zeroAEsquerda(data.getSeconds());
-
-        console.log(mes);
-
-        return `${dia} de ${mes} de ${ano}<br>${hora}:${min}:${sec}`;
-    }
-
-    function getDiaDaSemana(data) {
-
-        let diaDaSemana;
-
-        switch (data) {
+        switch (date) {
             case 0:
-                diaDaSemana = 'Domingo';
-                return diaDaSemana;
+                dayOfTheWeek = 'Domingo';
+                return dayOfTheWeek;
             case 1:
-                diaDaSemana = 'Segunda-feira';
-                return diaDaSemana;
+                dayOfTheWeek = 'Segunda-feira';
+                return dayOfTheWeek;
             case 2:
-                diaDaSemana = 'Terça-feira';
-                return diaDaSemana;
+                dayOfTheWeek = 'Terça-feira';
+                return dayOfTheWeek;
             case 3:
-                diaDaSemana = 'Quarta-feira';
-                return diaDaSemana;
+                dayOfTheWeek = 'Quarta-feira';
+                return dayOfTheWeek;
             case 4:
-                diaDaSemana = 'Quinta-feira';
-                return diaDaSemana;
+                dayOfTheWeek = 'Quinta-feira';
+                return dayOfTheWeek;
             case 5:
-                diaDaSemana = 'Sexta-feira';
-                return diaDaSemana;
+                dayOfTheWeek = 'Sexta-feira';
+                return dayOfTheWeek;
             case 6:
-                diaDaSemana = 'Sábado';
-                return diaDaSemana;
+                dayOfTheWeek = 'Sábado';
+                return dayOfTheWeek;
             default:
-                diaDaSemana = '';
-                return diaDaSemana;
+                dayOfTheWeek = '';
+                return dayOfTheWeek;
         }
     }
 
-    function getMes(data) {
-        let mes;
+    function getMonth(date) {
+        let month;
 
-        switch (data) {
+        switch (date) {
             case 0:
-                mes = 'Janeiro';
-                return mes;
+                month = 'Janeiro';
+                return month;
             case 1:
-                mes = 'Fevereiro';
-                return mes;
+                month = 'Fevereiro';
+                return month;
             case 2:
-                mes = 'Março';
-                return mes;
+                month = 'Março';
+                return month;
             case 3:
-                mes = 'Abril';
-                return mes;
+                month = 'Abril';
+                return month;
             case 4:
-                mes = 'Maio';
-                return mes;
+                month = 'Maio';
+                return month;
             case 5:
-                mes = 'Junho';
-                return mes;
+                month = 'Junho';
+                return month;
             case 6:
-                mes = 'Julho';
-                return mes;
+                month = 'Julho';
+                return month;
             case 7:
-                mes = 'Agosto';
-                return mes;
+                month = 'Agosto';
+                return month;
             case 8:
-                mes = 'Setembro';
-                return mes;
+                month = 'Setembro';
+                return month;
             case 9:
-                mes = 'Outubro';
-                return mes;
+                month = 'Outubro';
+                return month;
             case 10:
-                mes = 'Novembro';
-                return mes;
+                month = 'Novembro';
+                return month;
             case 11:
-                mes = 'Dezembro';
-                return mes;
+                month = 'Dezembro';
+                return month;
             default:
-                mes = '';
-                return mes;
+                month = '';
+                return month;
         }
+    }
+
+    function formatTime(date) {
+
+        const hour = zeroOnLeft(date.getHours());
+        const min = zeroOnLeft(date.getMinutes());
+        const sec = zeroOnLeft(date.getSeconds());
+        return `${hour}:${min}:${sec}`;
+
+    }
+
+    function zeroOnLeft(number) {
+        return number >= 10 ? number : `0${num}`;
     }
 
 }
