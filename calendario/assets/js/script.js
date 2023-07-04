@@ -141,11 +141,11 @@
 
 //Solução 3
 
-function myScope() {
+function startTimer() {
     const date = new Date();
     const h1 = document.querySelector('.container h1');
     h1.innerHTML = date.toLocaleString('pt-BR', { dateStyle: 'full', timeStyle: 'medium' });
 }
 
-setInterval(myScope, 1000);
+setInterval(startTimer, 1000);
 
