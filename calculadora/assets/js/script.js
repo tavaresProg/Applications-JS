@@ -3,7 +3,10 @@ function Calculator() {
 
     this.display = document.querySelector('.display');
 
-    this.addInDisplay = (button) => this.display.value += button.innerText;
+    this.addInDisplay = (button) => {
+        this.display.value += button.innerText;
+        this.display.focus();
+    }
 
     this.clearDisplay = () => this.display.value = ' ';
 
@@ -43,7 +46,7 @@ function Calculator() {
         });
 
         this.captureEnter = () => {
-            this.display.addEventListener('keydown', e => {
+            document.addEventListener('keydown', e => {
                 if (e.key === 'Enter') {
                     this.doMath();
                 }
