@@ -1,74 +1,67 @@
-function criaCalculadora() {
-    return {
 
-        display: document.querySelector('.display'),
+function Calculator() {
 
-        inicia() {
-            this.cliqueBotoes();
-            this.pressionaEnter();
-        },
+    this.display = document.querySelector('.display');
 
-        pressionaEnter() {
-            this.display.addEventListener('keyup', e => {
-                if (e.keyCode === 13) {
-                    this.realizaConta();
-                }
-            });
-        },
+    this.addInDisplay = (button) => this.display.value += button.innerText;
 
-        clearDisplay() {
-            this.display.value = '';
-        },
+    this.clearDisplay = () => this.display.value = ' ';
 
-        realizaConta() {
-            //eval é uma função perigosa que tenta executar uma string
-            //como javascript
-            let conta = this.display.value;
-            try {
-                conta = eval(conta);
-                if (!conta) {
-                    alert('Conta inválida');
-                    return;
-                }
-                this.display.value = conta;
-            } catch (e) {
-                alert('Conta inválida');
+    this.deleteInput = () => this.display.value = this.display.value.slice(0, -1);
+
+    this.doMath = () => {
+
+        const expression = this.display.value;
+
+        try {
+            const result = eval(expression);
+            if (!result) {
+                alert('Nothing to calculate');
                 return;
             }
-
-        },
-
-        delOne() {
-            //slice(0, -1) > sempre é o tamanho da string -1
-            this.display.value = this.display.value.slice(0, -1);
-        },
-
-        cliqueBotoes() {
-            document.addEventListener('click', e => {
-                const el = e.target;
-                if (el.classList.contains('btn-num')) {
-                    this.btnParaDisplay(el.innerText);
-                }
-                if (el.classList.contains('btn-clear')) {
-                    this.clearDisplay();
-                }
-                if (el.classList.contains('btn-del')) {
-                    this.delOne();
-                }
-                if (el.classList.contains('btn-eq')) {
-                    this.realizaConta();
-                }
-
-            });
-        },
-
-        btnParaDisplay(valor) {
-            this.display.value += valor;
+            this.display.value = result;
+        } catch (error) {
+            alert('Error');
         }
-
-
     };
+
+    this.captureKeypress = () => {
+        document.addEventListener('keydown', event => {
+            const keyPressed = event.key;
+            const validCharacters = /[0-9()+\/*=\-\s]|Backspace|Delete/;
+            if (!validCharacters.test(keyPressed)) event.preventDefault();
+        });
+    };
+
+    this.captureClicks = () => {
+        document.addEventListener('click', event => {
+            const button = event.target;
+            if (button.classList.contains('btn-num')) this.addInDisplay(button);
+            if (button.classList.contains('btn-clear')) this.clearDisplay();
+            if (button.classList.contains('btn-del')) this.deleteInput();
+            if (button.classList.contains('btn-eq')) this.doMath();
+        });
+
+        this.captureEnter = () => {
+            this.display.addEventListener('keydown', e => {
+                if (e.key === 'Enter') {
+                    this.doMath();
+                }
+            });
+        };
+
+    }
+
+    this.start = () => {
+        this.captureClicks();
+        this.captureKeypress();
+        this.captureEnter();
+    };
+
 }
 
-const calculadora = criaCalculadora();
-calculadora.inicia();
+const calculator = new Calculator();
+calculator.start();
+
+
+
