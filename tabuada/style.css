@@ -1,0 +1,97 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Helvetica;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(#CC4145, #4524B2);
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+h2 {
+    color: white;
+    padding: 15px;
+}
+
+#multiplication-form{
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+label {
+    text-align: center;
+    font-weight: bold;
+}
+
+#number {
+    width: 80px;
+    height: 40px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+#multiplicator {
+    width: 80px;
+    height: 40px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.form-multiplicator {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.form-number {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+   align-items: center;
+   gap: 5px;
+}
+
+.calcular-button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    background: #343334;
+}
+
+#multiplication-title{
+    text-align: center;
+}
+
+#multiplication-operations{
+  background-color: white;
+  width: 342px;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 5px;
+}
+
+.row {
+    display: flex;
+    margin: 5px;
+    justify-content: center;
+}
+
+.result {
+    margin-left: 5px;
+    font-weight: bold;
+}
